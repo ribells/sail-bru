@@ -1,7 +1,6 @@
 import pygame
 from support import import_folder
 
-
 bullet_img = pygame.image.load('../graphics/character/gun/yeet.png')
 bullet_img_flip = pygame.transform.flip(bullet_img, True, False)
 
@@ -13,18 +12,13 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.direction = direction
+
     def update(self):
         #move bullet
-        self.rect.x += self.direction.x * self.speed
-
-
-
-
+        print(self.direction, self.speed)
+        self.rect.x += self.direction * self.speed
 
 bullet_group = pygame.sprite.Group()
-
-
-
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface, create_jump_particles):
@@ -114,12 +108,11 @@ class Player(pygame.sprite.Sprite):
 
     def bullet_create(self):
         if self.facing_right == True:
-            bullet = Bullet(self.rect.centerx + 40 , self.rect.centery + 13, self.direction, bullet_img)
+            bullet = Bullet(self.rect.centerx + 40 , self.rect.centery + 13, 1, bullet_img)
             bullet_group.add(bullet)
         if self.facing_right == False:
-            bullet = Bullet(self.rect.centerx - 40, self.rect.centery + 13, self.direction, bullet_img_flip)
+            bullet = Bullet(self.rect.centerx - 40, self.rect.centery + 13, -1, bullet_img_flip)
             bullet_group.add(bullet)
-
 
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -162,3 +155,5 @@ class Player(pygame.sprite.Sprite):
         self.get_status()
         self.animate()
         self.run_dust_animation()
+        for b in bullet_group:
+            b.update()
