@@ -1,8 +1,0 @@
-hello sir,
-ive been working on the bullets today and ive got some issues
-im using the basic 1.code file in the referance file for simplicity and testing purposes.
-for some reason the bullet only moves when the player moves and then continues to follow the player camera
-i have not been able to figure these issues out , i was hoping you would have some ideas on this
-
-trust,
-sailu
