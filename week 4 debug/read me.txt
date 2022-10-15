@@ -1,0 +1,5 @@
+hello sir,
+ ive worked on the bullet collision , however im running into an error which i cant figure out.
+the bullet detection code is within the level file under the check_enemy_collision funcrion
+yours kindly,
+sailesh
