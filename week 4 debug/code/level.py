@@ -99,10 +99,13 @@ class Level:
                     x = col_index * tile_size
                     y = row_index * tile_size
 
+                    sprite = Coin(tile_size, x, y, '../graphics/coins/silver', 1)
+
                     if type == 'terrain':
                         terrain_tile_list = import_cut_graphics('../graphics/terrain/terrain_tiles.png')
-                        tile_surface = terrain_tile_list[int(val)]
-                        sprite = StaticTile(tile_size, x, y, tile_surface)
+                        if (int(val) < 32):
+                            tile_surface = terrain_tile_list[int(val)]
+                            sprite = StaticTile(tile_size, x, y, tile_surface)
 
                     if type == 'grass':
                         grass_tile_list = import_cut_graphics('../graphics/decoration/grass/grass.png')
@@ -258,32 +261,16 @@ class Level:
     def check_enemy_collisions(self):
         global bullet_left, bullet_right
 
-
-
-
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite, self.enemy_sprites, False)
-        bullet_collisions = pygame.sprite.spritecollide(self.check_bullet_collisions(), self.enemy_sprites, False)
+        #bullet_collisions = pygame.sprite.spritecollide(self.check_bullet_collisions(), self.enemy_sprites, False)
 
-        for bullet in bullet_collisions:
-            bullet_center = bullet.rect.centery
-            bullet_left = bullet.rect.left
-            bullet_right = bullet.rect.right
-            bullet_top = bullet.rect.top
-            bullet_botom = bullet.rect.bottom
-
-        if bullet_collisions:
-            for enemy in enemy_collisions:
-                enemy_center = enemy.rect.center
-                enemy_left = enemy.rect.left
-                enemy_right = enemy.rect.right
-                bullet_lefty = bullet_left
-                bullet_righty = bullet_right
-                if enemy_right < bullet_righty < enemy_center:
-                    enemy.kill()
-                if enemy_left < bullet_lefty < enemy_center:
+        for enemy in self.enemy_sprites:
+            for bullet in bullet_group:
+                if pygame.sprite.collide_rect(enemy, bullet):
+                    print("collision!")
                     enemy.kill()
 
-        print(bullet_collisions)
+        #print(bullet_collisions)
 
         if enemy_collisions:
             for enemy in enemy_collisions:
