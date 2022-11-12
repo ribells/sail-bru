@@ -12,8 +12,6 @@ from settings import screen_height
 from settings import screen_width
 from player import *
 
-
-
 class Level:
     def __init__(self, current_level, surface, create_overworld, change_coins, change_health):
         # general setup
@@ -262,7 +260,7 @@ class Level:
             return False
 
 
-    def check_enemy_collisions(self):
+    def check_enemy_collisions(self, player=None):
         global bullet_left, bullet_right
 
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite, self.enemy_sprites, False)
@@ -273,7 +271,9 @@ class Level:
                if pygame.sprite.collide_rect(enemy, bullet):
                    print(enemy.colour, bullet.colour)
                    if(enemy.colour==bullet.colour):
-                      print("collision!")
+                      print('nice shot! jump speed updated to: ')
+                      self.player.sprite.jump_speed = self.player.sprite.jump_speed - 2
+                      print(self.player.sprite.jump_speed)
                       explosion_sprite = ParticleEffect(enemy.rect.center, 'explosion')
                       self.explosion_sprites.add(explosion_sprite)
                       self.bullet_sound.play()
