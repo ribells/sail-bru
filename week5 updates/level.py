@@ -236,6 +236,10 @@ class Level:
 
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
+            print("won level")
+            self.new_max_level = self.new_max_level + 1
+            self.current_level = self.current_level + 1
+            print(self.new_max_level)
             self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):
