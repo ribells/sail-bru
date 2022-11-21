@@ -60,7 +60,7 @@ class Game:
             self.cur_health = 100
             self.coins = 0
             self.max_level = 0
-            self.overworld = Overworld(0, selfa.max_level, screen, self.create_level)
+            self.overworld = Overworld(0, self.max_level, screen, self.create_level)
             self.status = 'overworld'
             self.level_bg_music.stop()
             self.overworld_bg_music.play(loops=-1)
