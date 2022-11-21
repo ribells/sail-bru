@@ -16,7 +16,7 @@ class Level:
     def __init__(self, current_level, surface, create_overworld, change_coins, change_health):
         # general setup
         self.display_surface = surface
-        self.world_shift = 0
+        self.world_shift = [0, 0]
         self.current_x = None
 
         # audio
@@ -201,17 +201,29 @@ class Level:
     def scroll_x(self):
         player = self.player.sprite
         player_x = player.rect.centerx
+        player_y = player.rect.centery
         direction_x = player.direction.x
+        direction_y = player.direction.y
+        shift_x = 0
 
         if player_x < screen_width / 4 and direction_x < 0:
-            self.world_shift = 8
+            shift_x = 8
             player.speed = 0
         elif player_x > screen_width - (screen_width / 4) and direction_x > 0:
-            self.world_shift = -8
+            shift_x = -8
             player.speed = 0
         else:
-            self.world_shift = 0
             player.speed = 8
+
+        #print(direction_y)
+
+        # player_y < screen_height / 4
+        if direction_y > 1:
+            self.world_shift = [shift_x, 1.0]
+        elif direction_y < 0:
+            self.world_shift = [shift_x, -0.1]
+        else:
+            self.world_shift = [shift_x, 0.0]
 
     def get_player_on_ground(self):
         if self.player.sprite.on_ground:
@@ -294,7 +306,10 @@ class Level:
                     self.player.sprite.direction.y = -15
                     explosion_sprite = ParticleEffect(enemy.rect.center, 'explosion')
                     self.explosion_sprites.add(explosion_sprite)
-                    enemy.kill()
+                    enemy.apply_damage(1)
+                    print(enemy.health)
+                    if (enemy.health <= 0):
+                        enemy.kill()
                 else:
                     self.player.sprite.get_damage()
 

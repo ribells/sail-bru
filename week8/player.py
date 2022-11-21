@@ -275,5 +275,3 @@ class Player(pygame.sprite.Sprite):
             self.shoot_cooldown -= 1
 
 #create new instance
-
-

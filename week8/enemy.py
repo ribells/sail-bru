@@ -15,6 +15,8 @@ class Enemy(AnimatedTile):
 			super().__init__(size,x,y,'../graphics/enemy/run_green')
 		self.rect.y += size - self.image.get_size()[1]
 		self.speed = randint(3,5)
+		self.health = 3
+		self.invincible = False
 
 	def Colour(self):
 		if self.colour == 1:
@@ -23,7 +25,6 @@ class Enemy(AnimatedTile):
 			kolour = "blue"
 		if self.colour == 3:
 			kolour = "green"
-		
 
 	def move(self):
 		self.rect.x += self.speed
@@ -35,8 +36,13 @@ class Enemy(AnimatedTile):
 	def reverse(self):
 		self.speed *= -1
 
+	def apply_damage(self,amount):
+		if not self.invincible:
+			self.health = self.health - amount
+
 	def update(self,shift):
-		self.rect.x += shift
+		self.rect.x += shift[0]
+		self.rect.y += shift[1]
 		self.animate()
 		self.move()
 		self.reverse_image()
