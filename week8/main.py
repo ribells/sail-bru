@@ -56,7 +56,7 @@ class Game:
         self.cur_health += amount
 
     def check_game_over(self):
-        if self.cur_health <= 0:
+        if self.cur_health <= 0 or (round(self.starttime) + 100 - round(time.time())) < 0:
             self.cur_health = 100
             self.coins = 0
             self.max_level = 0
@@ -72,8 +72,11 @@ class Game:
             self.level.run()
             self.ui.show_health(self.cur_health, self.max_health)
             self.ui.show_coins(self.coins)
-            curr_time = round(time.time()) - round(self.starttime)
-            self.ui.show_timer(curr_time)
+            curr_time = round(self.starttime) + 100 - round(time.time())
+            if(curr_time > 0):
+                self.ui.show_timer(curr_time)
+            else:
+                self.ui.show_timer(0)
             self.check_game_over()
             self.bullet_maker()
 

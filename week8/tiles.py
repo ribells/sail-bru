@@ -8,7 +8,8 @@ class Tile(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect(topleft = (x,y))
 
 	def update(self,shift):
-		self.rect.x += shift
+		self.rect.x += shift[0]
+		self.rect.y += shift[1]
 
 class StaticTile(Tile):
 	def __init__(self,size,x,y,surface):
@@ -36,7 +37,8 @@ class AnimatedTile(Tile):
 
 	def update(self,shift):
 		self.animate()
-		self.rect.x += shift
+		self.rect.x += shift[0]
+		self.rect.y += shift[1]
 
 class Coin(AnimatedTile):
 	def __init__(self,size,x,y,path,value):

@@ -34,7 +34,7 @@ class Bullet(pygame.sprite.Sprite):
         self.pos = (self.rect.x, self.rect.y)
         self.bcolour = None
 
-        print(self.colour)
+        #print(self.colour)
 
     def bullet_Colour(self):
         if self.colour == 1:

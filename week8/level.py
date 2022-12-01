@@ -246,10 +246,10 @@ class Level:
 
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
-            print("won level")
+            #print("won level")
             self.new_max_level = self.new_max_level + 1
             self.current_level = self.current_level + 1
-            print(self.new_max_level)
+            #print(self.new_max_level)
             self.create_overworld(self.current_level, self.new_max_level)
 
     def check_coin_collisions(self):
@@ -280,9 +280,9 @@ class Level:
         for enemy in self.enemy_sprites:
            for bullet in bullet_group:
                if pygame.sprite.collide_rect(enemy, bullet):
-                   print(enemy.colour, bullet.colour)
+                   #print(enemy.colour, bullet.colour)
                    if(enemy.colour==bullet.colour):
-                      print('nice shot! jump speed updated to: ')
+                      #print('nice shot! jump speed updated to: ')
                       self.player.sprite.jump_speed = self.player.sprite.jump_speed - 2
                       print(self.player.sprite.jump_speed)
                       explosion_sprite = ParticleEffect(enemy.rect.center, 'explosion')
@@ -307,7 +307,7 @@ class Level:
                     explosion_sprite = ParticleEffect(enemy.rect.center, 'explosion')
                     self.explosion_sprites.add(explosion_sprite)
                     enemy.apply_damage(1)
-                    print(enemy.health)
+                    #print(enemy.health)
                     if (enemy.health <= 0):
                         enemy.kill()
                 else:
